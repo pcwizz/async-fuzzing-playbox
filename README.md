@@ -13,3 +13,12 @@
 #4194304        pulse  cov: 619 ft: 632 corp: 3/17b lim: 4096 exec/s: 48770 rss: 263Mb
 #8388608        pulse  cov: 619 ft: 632 corp: 3/17b lim: 4096 exec/s: 49932 rss: 263Mb
 ```
+
+## Simple Target manually executing future
+
+```
+#417	NEW    cov: 27 ft: 27 corp: 2/9b lim: 8 exec/s: 0 rss: 53Mb L: 8/8 MS: 5 ChangeBit-CMP-CrossOver-CopyPart-InsertByte- DE: "\001\000\000\000"-
+#4194304	pulse  cov: 27 ft: 27 corp: 2/9b lim: 4096 exec/s: 1398101 rss: 357Mb
+```
+
+Roughly a 90x speedup in terms of executions per second compared to setting up and running tokio each time.
