@@ -9,6 +9,7 @@ cargo-fuzz = true
 
 [dependencies]
 arbitrary = { version = "1.3.2", features = ["derive"]}
+lazy_static = "1.5.0"
 libfuzzer-sys = "0.4"
 tokio = { version = "1.39.2", features = ["full"]}
 
@@ -31,5 +32,11 @@ doc = false
 [[bin]]
 name = "simple_target_future_poll"
 path = "fuzz_targets/simple_target_future_poll.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "simple_target_full_tokio_lazy"
+path = "fuzz_targets/simple_target_full_tokio_lazy.rs"
 test = false
 doc = false
