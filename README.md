@@ -104,3 +104,12 @@ execution.
 When functions stick to operating on traits like `AsyncRead` then we can still
 poll the futures to completion manually. We maintain minimal performance
 penality for the code bing async and all is good.
+
+## Spawn target manually executing future
+
+```
+there is no reactor running, must be called from the context of a Tokio 1.x runtime
+```
+
+When a target spawns a task then it creates a dependency on the reactor which
+inhibits out ability to simply progress the future as we could previously.
