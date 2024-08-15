@@ -1,6 +1,3 @@
-use core::time;
-use std::{clone, sync::Arc};
-
 use tokio::io::AsyncReadExt;
 
 #[cfg(test)]
@@ -15,19 +12,23 @@ mod tests {
     #[tokio::test]
     #[should_panic]
     async fn reading_target_test_bug() {
-        let reader = tokio_test::io::Builder::new().read(&[0, 6, 2, 1, 45, 65, 3, 54, 5, 9, 0, 6, 2, 1, 45, 65, 3]).build();
+        let reader = tokio_test::io::Builder::new()
+            .read(&[0, 6, 2, 1, 45, 65, 3, 54, 5, 9, 0, 6, 2, 1, 45, 65, 3])
+            .build();
         reading_target(reader).await
     }
 
     #[tokio::test]
     async fn reading_target_test_no_bug() {
-        let reader = tokio_test::io::Builder::new().read(&[0, 6, 2, 1, 45, 65, 3, 5, 5, 9, 0, 5, 2, 1, 45, 65, 3]).build();
+        let reader = tokio_test::io::Builder::new()
+            .read(&[0, 6, 2, 1, 45, 65, 3, 5, 5, 9, 0, 5, 2, 1, 45, 65, 3])
+            .build();
         reading_target(reader).await
     }
 
     #[tokio::test]
     async fn spawn_target_test() {
-        assert_eq!(spawn_target(4,&[4]).await, 42)
+        assert_eq!(spawn_target(4, &[4]).await, 42)
     }
 }
 
@@ -54,18 +55,18 @@ where
             break;
         }
         if n == 7 {
-            for i in 0..7{
-                assert_ne!(buffer[i..i+2],[6,2]);
+            for i in 0..7 {
+                assert_ne!(buffer[i..i + 2], [6, 2]);
             }
         }
     }
 }
 
-pub async fn spawn_target(i: usize, s: &[u8]) -> u8
-{
-    let s =s.to_owned();
+pub async fn spawn_target(i: usize, s: &[u8]) -> u8 {
+    let s = s.to_owned();
     let _ = tokio::spawn(async move {
         let _ = simple_target(i, &s).await;
-     }).await;
+    })
+    .await;
     42
 }
