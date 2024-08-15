@@ -14,17 +14,13 @@ mod tests {
     #[tokio::test]
     #[should_panic]
     async fn reading_target_test_bug() {
-        let reader = tokio_test::io::Builder::new()
-            .read(&[0, 6, 2, 1, 45, 65, 3, 54, 5, 9, 0, 6, 2, 1, 45, 65, 3])
-            .build();
+        let reader = tokio_test::io::Builder::new().read(&[0, 6, 2, 1, 45, 65, 3, 54, 5, 9, 0, 6, 2, 1, 45, 65, 3]).build();
         reading_target(reader).await
     }
 
     #[tokio::test]
     async fn reading_target_test_no_bug() {
-        let reader = tokio_test::io::Builder::new()
-            .read(&[0, 6, 2, 1, 45, 65, 3, 5, 5, 9, 0, 6, 2, 1, 45, 65, 3])
-            .build();
+        let reader = tokio_test::io::Builder::new().read(&[0, 6, 2, 1, 45, 65, 3, 5, 5, 9, 0, 5, 2, 1, 45, 65, 3]).build();
         reading_target(reader).await
     }
 }
@@ -52,7 +48,9 @@ where
             break;
         }
         if n == 7 {
-            assert_ne!(buffer, [0, 6, 2, 1, 45, 65, 3, 54, 5, 9]);
+            for i in 0..7{
+                assert_ne!(buffer[i..i+2],[6,2]);
+            }
         }
     }
 }
