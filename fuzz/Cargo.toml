@@ -49,6 +49,13 @@ test = false
 doc = false
 
 [[bin]]
+name = "reading_target_future_tokio_full"
+path = "fuzz_targets/reading_target_future_tokio_full.rs"
+test = false
+doc = false
+
+
+[[bin]]
 name = "spawn_target_future_poll"
 path = "fuzz_targets/spawn_target_future_poll.rs"
 test = false
