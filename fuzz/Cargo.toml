@@ -60,3 +60,9 @@ name = "spawn_target_future_poll"
 path = "fuzz_targets/spawn_target_future_poll.rs"
 test = false
 doc = false
+
+[[bin]]
+name = "spawn_target_tokio_test"
+path = "fuzz_targets/spawn_target_tokio_test.rs"
+test = false
+doc = false

@@ -52,7 +52,7 @@ build the runtime, however the rust bindings do not currently exposes this.
 embed the fuzz target inside a main function where we could do this setup before
 the fuzz target so that we avoid repeating it as we do here with `lazy_static`
 but whilst also saving the small runtime cost of `lazy_static` `Deref` in each
-execution. 
+execution.
 
 ## Reading target manually executing future
 
@@ -113,3 +113,7 @@ there is no reactor running, must be called from the context of a Tokio 1.x runt
 
 When a target spawns a task then it creates a dependency on the reactor which
 inhibits out ability to simply progress the future as we could previously.
+
+## Using tokio test
+
+This actualy just sets up a tokio runtime in the current thread and is identical to our full tokio examples. It is nice to have the sugar wrapping.
