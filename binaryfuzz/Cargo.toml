@@ -9,6 +9,19 @@ edition = "2024"
 [toolchain]
 channel = "nightly"
 
+[features]
+## Set emulator to big endian
+be = ["libafl_qemu/be"]
+
+#! ## Mutually exclusive architectures
+arm = ["libafl_qemu/arm"]
+x86_64 = ["libafl_qemu/x86_64"]
+i386 = ["libafl_qemu/i386"]
+aarch64 = ["libafl_qemu/aarch64"]
+mips = ["libafl_qemu/mips"]
+ppc = ["libafl_qemu/ppc", "be"]
+hexagon = ["libafl_qemu/hexagon"]
+
 [dependencies]
 libafl = "0.15.1"
 libafl_bolts = "0.15.1"
