@@ -1,0 +1,16 @@
+cargo-features = ["per-package-target"]
+
+[package]
+name = "binaryfuzz"
+default-target = "aarch64-unknown-linux-gnu"
+version = "0.1.0"
+edition = "2024"
+
+[toolchain]
+channel = "nightly"
+
+[dependencies]
+libafl = "0.15.1"
+libafl_bolts = "0.15.1"
+libafl_qemu = { version = "0.15.1", features = ["usermode", "aarch64"] }
+typed-builder = "0.20.0"
