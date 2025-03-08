@@ -5,8 +5,8 @@ edition = "2021"
 
 [dependencies]
 afl = "0.15.10"
-arbitrary = { version = "1.3.2", features = ["derive"]}
-tokio = { version = "1.39.2", features = ["full"]}
+arbitrary = { version = "1.3.2", features = ["derive"] }
+tokio = { version = "1.39.2", features = ["full"] }
 
 [dependencies.async_fuzzing_playbox]
-path = ".."
+path = "../fuzz_target"

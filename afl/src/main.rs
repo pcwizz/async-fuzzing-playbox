@@ -11,15 +11,14 @@ struct Input<'a> {
 }
 
 fn main() {
+    let runtime = tokio::runtime::Builder::new_current_thread()
+        .enable_all()
+        .build()
+        .unwrap();
     fuzz!(|data: Input| {
         // Build a new tokio runtime for every fuzz exec
-        tokio::runtime::Builder::new_current_thread()
-            .enable_all()
-            .build()
-            .unwrap()
-            .block_on(async {
-                let _ = simple_target(data.i, data.s).await;
-            })
+        runtime.block_on(async {
+            let _ = simple_target(data.i, data.s).await;
+        })
     });
 }
-
