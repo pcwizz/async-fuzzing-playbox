@@ -2,7 +2,7 @@ cargo-features = ["per-package-target"]
 
 [package]
 name = "binaryfuzz"
-default-target = "aarch64-unknown-linux-gnu"
+default-target = "x86_64-unknown-linux-gnu"
 version = "0.1.0"
 edition = "2024"
 
