@@ -1,6 +1,5 @@
 use gimli::{AttributeValue, Dwarf, DwarfSections, EndianSlice, LittleEndian, SectionId};
 use object::{Object, ObjectSection};
-use std::borrow::Cow;
 
 #[derive(Debug)]
 struct AsyncFunctionEntry {
