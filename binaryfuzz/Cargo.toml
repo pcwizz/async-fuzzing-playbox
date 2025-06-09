@@ -23,7 +23,7 @@ ppc = ["libafl_qemu/ppc", "be"]
 hexagon = ["libafl_qemu/hexagon"]
 
 [dependencies]
-libafl = "0.15.1"
-libafl_bolts = "0.15.1"
-libafl_qemu = { version = "0.15.1", features = ["usermode", "aarch64"] }
+libafl = { version = "0.15.3", features = ["std", "tui_monitor"]}
+libafl_bolts = "0.15.3"
+libafl_qemu = { version = "0.15.3", features = ["usermode", "aarch64"] }
 typed-builder = "0.20.0"

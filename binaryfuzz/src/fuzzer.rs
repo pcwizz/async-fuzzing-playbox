@@ -1,4 +1,4 @@
-use libafl::{monitors::TuiMonitor, Error};
+use libafl::{Error, monitors::TuiMonitor};
 use libafl_bolts::shmem::{ShMemProvider, StdShMemProvider};
 
 pub struct Fuzzer {}
@@ -18,7 +18,7 @@ impl Fuzzer {
     }
 
     fn launch<M>(&self, monitor: M) -> Result<(), Error> {
-        let mut shem_provider = StdShMemProvider::new()?;
+        let shem_provider = StdShMemProvider::new()?;
 
         Ok(())
     }

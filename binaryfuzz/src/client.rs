@@ -1,11 +1,11 @@
 use crate::instance::ClientMgr;
 use libafl::{
+    Error,
     corpus::{InMemoryOnDiskCorpus, OnDiskCorpus},
     events::ClientDescription,
     inputs::BytesInput,
     monitors::Monitor,
     state::StdState,
-    Error,
 };
 use libafl_bolts::rands::StdRand;
 

@@ -1,4 +1,3 @@
-use std::fmt::Debug;
 use std::marker::PhantomData;
 use typed_builder::TypedBuilder;
 
@@ -6,8 +5,10 @@ use libafl::{
     Error,
     events::{ClientDescription, SimpleEventManager},
     inputs::BytesInput,
-    monitors::Monitor,
+    monitors::{Monitor, stats::ClientStatsManager},
 };
+
+use libafl_bolts::ClientId;
 
 use crate::client::ClientState;
 
@@ -23,18 +24,13 @@ pub struct Instance<M: Monitor> {
     phantom: PhantomData<M>,
 }
 
-use libafl_qemu::modules::EmulatorModuleTuple;
-
 impl<M: Monitor> Instance<M> {
-    pub fn run<ET>(
+    pub fn display(
         &mut self,
-        args: Vec<String>,
-        modules: ET,
-        state: Option<ClientState>,
-    ) -> Result<(), Error>
-    where
-        ET: EmulatorModuleTuple<BytesInput, ClientState> + Debug,
-    {
+        client_stats_manager: &mut ClientStatsManager,
+        event_msg: &str,
+        sender_id: ClientId,
+    ) -> Result<(), Error> {
         Ok(())
     }
 }
