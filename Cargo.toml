@@ -1,3 +1,7 @@
 [workspace]
 resolver = "2"
-members = ["fuzz_target", "afl", "fuzz", "binaryfuzz"]
+members = ["fuzz_target", "afl", "fuzz", "binaryfuzz", "testapp"]
+
+[profile.dev]
+split-debuginfo = "off"
+debug = "full"

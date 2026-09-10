@@ -66,7 +66,6 @@ pub async fn spawn_target(i: usize, s: &[u8]) -> u8 {
     let s = s.to_owned();
     let _ = tokio::spawn(async move {
         let _ = simple_target(i, &s).await;
-    })
-    .await;
+    });
     42
 }

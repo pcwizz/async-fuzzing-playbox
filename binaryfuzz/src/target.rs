@@ -1,8 +1,8 @@
 use gimli::{AttributeValue, Dwarf, DwarfSections, EndianSlice, LittleEndian, SectionId};
-use object::{Object, ObjectSection};
+use object::{Object, ObjectSection, ObjectSymbol, SymbolKind};
 
 #[derive(Debug)]
-struct AsyncFunctionEntry {
+pub struct AsyncFunctionEntry {
     name: String,
     address: u64,
     mangled_name: String,
@@ -144,20 +144,19 @@ fn get_low_pc(
     Ok(None)
 }
 
-fn find_async_foo_boundaries(
+pub fn find_async_foo_boundaries(
     binary_data: &[u8],
 ) -> Result<AsyncFunctionBoundaries, Box<dyn std::error::Error>> {
     let object = object::File::parse(binary_data)?;
 
     let load_section = |section: SectionId| -> Result<Vec<u8>, Box<dyn std::error::Error>> {
-        object
-            .section_by_name(section.name())
+        Ok(object
+            .section_by_name(dbg!(section.name()))
             .and_then(|s| s.uncompressed_data().ok())
-            .map(|cow| cow.into_owned())
-            .ok_or_else(|| format!("Section {} not found", section.name()).into())
+            .map_or_else(|| Vec::new(), |cow| cow.into_owned()))
     };
 
-    let dwarf_sections = DwarfSections::load(load_section)?;
+    let dwarf_sections = dbg!(DwarfSections::load(load_section))?;
 
     let dwarf = dwarf_sections.borrow(|section| EndianSlice::new(&section, LittleEndian));
 
@@ -184,7 +183,7 @@ fn find_async_foo_boundaries(
 }
 
 #[derive(Default, Debug)]
-struct AsyncFunctionBoundaries {
+pub struct AsyncFunctionBoundaries {
     entry_point: Option<u64>,     // Where the async fn is called
     generator_start: Option<u64>, // Where the async body starts executing
 }

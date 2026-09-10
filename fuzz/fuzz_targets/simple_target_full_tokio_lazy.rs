@@ -19,8 +19,7 @@ lazy_static! {
 }
 
 fuzz_target!(|data: Input| {
-    // Build a new tokio runtime for every fuzz exec
     TOKIO.block_on(async {
-        let _ = simple_target(data.i, data.s).await;
+        let _ = spawn_target(data.i, data.s).await;
     })
 });

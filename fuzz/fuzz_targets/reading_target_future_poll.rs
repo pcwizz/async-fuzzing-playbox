@@ -5,7 +5,7 @@ use async_fuzzing_playbox::*;
 use core::pin::pin;
 use core::task::{Context, Poll, Waker};
 use libfuzzer_sys::fuzz_target;
-use std::future::{Future, Pending};
+use std::future::Future;
 
 fuzz_target!(|data: &[u8]| {
     let reader = tokio_test::io::Builder::new().read(data).build();
