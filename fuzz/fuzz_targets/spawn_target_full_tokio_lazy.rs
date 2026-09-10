@@ -1,8 +1,9 @@
 #![no_main]
 
+use std::sync::OnceLock;
+
 use arbitrary::Arbitrary;
 use async_fuzzing_playbox::*;
-use lazy_static::lazy_static;
 use libfuzzer_sys::fuzz_target;
 
 #[derive(Arbitrary, Debug)]
@@ -11,15 +12,17 @@ struct Input<'a> {
     s: &'a [u8],
 }
 
-lazy_static! {
-    static ref TOKIO: tokio::runtime::Runtime = tokio::runtime::Builder::new_current_thread()
-        .enable_all()
-        .build()
-        .unwrap();
-}
+static TOKIO: OnceLock<tokio::runtime::Runtime> = OnceLock::new();
 
-fuzz_target!(|data: Input| {
-    TOKIO.block_on(async {
+fuzz_target!(
+    init: {
+        TOKIO.set(tokio::runtime::Builder::new_current_thread()
+                .enable_all()
+                .build()
+                .unwrap()).unwrap();
+    },
+    |data: Input| {
+    TOKIO.get().unwrap().block_on(async {
         let _ = spawn_target(data.i, data.s).await;
     })
 });
