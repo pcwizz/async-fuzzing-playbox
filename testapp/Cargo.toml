@@ -1,0 +1,7 @@
+[package]
+name = "testapp"
+edition = "2024"
+version = "0.0.1"
+
+[dependencies]
+tokio = { version = "1.47.1", features = ["full"] }
